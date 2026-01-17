@@ -1,52 +1,52 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "NES",
       "productType": "Console",
       "console": "NES",
       "price": 49.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Console_NES.png"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Super Mario Bros.",
       "productType": "Game",
       "console": "NES",
       "price": 19.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Game_SuperMarioBros.png"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "SNES",
       "productType": "Console",
       "console": "SNES",
       "price": 49.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Console_SNES.png"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Starfox",
       "productType": "Game",
       "console": "SNES",
       "price": 24.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Game_StarFox.png"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "SEGA Genesis",
       "productType": "Console",
       "console": "SEGA Genesis",
       "price": 49.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Console_SEGA_Genesis.png"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Sonic the Hedgehog",
       "productType": "Game",
       "console": "SEGA Genesis",
       "price": 18.99,
-      "image": "https://via.placeholder.com/300"
+      "image": "Game_SonicTheHedgehog.png"
     }
   ]
 }
