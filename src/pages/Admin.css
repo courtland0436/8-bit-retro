@@ -1,0 +1,119 @@
+/* Admin Page Container */
+.admin-container {
+  padding: 100px 20px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Page Title */
+.admin-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Add Product Button */
+.add-product-btn,
+.reset-app-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-product-btn:hover,
+.reset-app-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Published Products Section */
+.published-products {
+  text-align: left;
+}
+
+.published-products h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.published-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.published-product .product-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Remove Button in Published List */
+.remove-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #a71d2a;
+  transform: scale(1.05);
+}
+
+/* Reset App Button */
+.reset-app-btn {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #e71d31;
+}
+
+.reset-app-btn:hover {
+  background-color: #a71d2a;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 60px 15px 30px;
+  }
+
+  .add-product-btn,
+  .reset-app-btn {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .published-product {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .remove-btn {
+    align-self: flex-end;
+  }
+}

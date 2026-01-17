@@ -1,0 +1,68 @@
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Image */
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Text */
+.product-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.product-info,
+.product-price {
+  font-family: sans-serif;
+  font-size: 0.9rem;
+}
+
+.product-price {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.product-card button {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  font-family: inherit;
+  transition: background-color 0.2s;
+}
+
+/* Add to Cart (Blue) */
+.product-card .add-btn {
+  background-color: #007bff;
+}
+.product-card .add-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Remove from Cart (Red) */
+.product-card .remove-btn {
+  background-color: #dc3545;
+}
+.product-card .remove-btn:hover {
+  background-color: #a71d2a;
+}
