@@ -4,7 +4,6 @@ import useProducts from "../hooks/useProducts.js";
 const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
-  // Use all the CRUD functions from our custom hook
   const { 
     products, 
     loading, 
@@ -40,27 +39,60 @@ export const ProductsProvider = ({ children }) => {
     );
   };
 
-  // --- PRODUCT CRUD LOGIC (Persistent) ---
+  // --- PRODUCT CRUD LOGIC ---
 
-  // CREATE: Calls the hook's POST request
   const addProduct = (newProduct) => {
     postProduct(newProduct);
   };
 
-  // UPDATE: Calls the hook's PATCH request (Satisfies price edit requirement)
   const editProduct = (id, updatedFields) => {
     patchProduct(id, updatedFields);
   };
 
-  // DELETE: Calls the hook's DELETE request & clears from cart
   const deleteProduct = (id) => {
     removeProductDB(id);
-    removeFromCart(id); // Clean up cart if product is deleted from store
+    removeFromCart(id);
   };
 
-  const resetApp = () => {
+  // --- PERSISTENT RESET LOGIC ---
+  const resetApp = async () => {
+    // 1. Clear local cart
     setCart([]);
-    window.location.reload(); // Re-fetches fresh data from db.json
+
+    // 2. Define the original "Vision" prices
+    const defaultPrices = {
+      "NES": 49.99,
+      "Super Mario Bros.": 19.99,
+      "SNES": 49.99,
+      "Starfox": 24.99,
+      "SEGA Genesis": 49.99,
+      "Sonic the Hedgehog": 18.99
+    };
+
+    try {
+      // 3. Loop through current products and revert prices in db.json
+      const resetPromises = products.map((product) => {
+        const originalPrice = defaultPrices[product.name];
+        
+        // Only PATCH if we have a record of the original price
+        if (originalPrice !== undefined) {
+          return fetch(`http://localhost:3001/products/${product.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ price: originalPrice }),
+          });
+        }
+        return Promise.resolve();
+      });
+
+      await Promise.all(resetPromises);
+      
+      // 4. Reload to ensure all state and hooks re-fetch fresh data
+      window.location.reload();
+    } catch (error) {
+      console.error("Error resetting application prices:", error);
+      alert("Reset failed. Please check if json-server is running.");
+    }
   };
 
   return (
@@ -73,8 +105,8 @@ export const ProductsProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         addProduct,
-        editProduct,   // New: Pass this to Admin for price changes
-        deleteProduct, // New: Pass this to Admin for permanent removal
+        editProduct,
+        deleteProduct,
         resetApp,
       }}
     >
