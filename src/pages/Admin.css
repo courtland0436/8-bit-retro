@@ -66,16 +66,38 @@
   font-size: 1rem;
 }
 
-/* Remove Button in Published List */
-.remove-btn {
-  background-color: #dc3545;
-  color: #fff;
+/* Container for buttons to keep them side-by-side */
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Shared Button Style for Edit and Remove */
+.remove-btn,
+.edit-btn {
   border: none;
   border-radius: 6px;
   padding: 6px 12px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Specific Blue Style for Edit */
+.edit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Specific Red Style for Remove */
+.remove-btn {
+  background-color: #dc3545;
+  color: #fff;
 }
 
 .remove-btn:hover {
@@ -110,10 +132,10 @@
   .published-product {
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+    gap: 10px;
   }
 
-  .remove-btn {
+  .admin-actions {
     align-self: flex-end;
   }
 }

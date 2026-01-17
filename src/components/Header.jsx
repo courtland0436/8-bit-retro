@@ -42,7 +42,8 @@ function Header() {
 
       <div className="header-right">
         <Link to="/cart" className="cart">
-          🛒 {cart.length}
+          <span className="cart-icon">🛒</span>
+          <span className="cart-count">{cart.length}</span>
         </Link>
       </div>
 

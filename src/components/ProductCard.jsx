@@ -14,29 +14,31 @@ import Sonic from "../assets/Product_Images/Game_SonicTheHedgehog.png";
 import ConsolePlaceholder from "../assets/Product_Images/Console_Placeholder.png";
 import GamePlaceholder from "../assets/Product_Images/Game_Placeholder.png";
 
-// Map product name → local image
+// IMPORTANT: These keys must match the "name" field in your db.json EXACTLY
 const productImages = {
-  NES: NESConsole,
-  SNES: SNESConsole,
+  "NES": NESConsole,
+  "SNES": SNESConsole,
   "SEGA Genesis": SegaGenesisConsole,
   "Super Mario Bros.": SuperMario,
-  Starfox: StarFox,
+  "Starfox": StarFox,
   "Sonic the Hedgehog": Sonic,
 };
 
 function ProductCard({ product }) {
   const { cart, addToCart, removeFromCart } = useProductsContext();
 
-  // Check if this product is in the cart
   const inCart = cart.some((item) => item.id === product.id);
 
-  // Determine the image to display
-  const imageSrc = product.image
-    ? product.image
-    : productImages[product.name]
-    ? productImages[product.name]
-    : product.productType === "Console"
-    ? ConsolePlaceholder
+  // LOGIC:
+  // 1. First, try to find a match in our productImages map using the product NAME.
+  // 2. If no match, check if product.image is a full URL (for Admin-added items).
+  // 3. Last resort, use a placeholder.
+  const imageSrc = productImages[product.name] 
+    ? productImages[product.name] 
+    : (product.image && product.image.startsWith("http")) 
+    ? product.image 
+    : product.productType === "Console" 
+    ? ConsolePlaceholder 
     : GamePlaceholder;
 
   return (

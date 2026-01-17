@@ -1,14 +1,18 @@
+/* src/components/Header.css */
+
 .header {
-  position: fixed; /* sticky at top */
+  box-sizing: border-box; /* Ensures padding doesn't push width over 100% */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #ffffff; /* clean modern bg */
+  background-color: #ffffff;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Pushes left and right sections apart */
   align-items: center;
-  padding: 10px 20px;
+  padding: 0 30px; /* Increased padding for better breathing room */
+  height: 70px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
@@ -16,7 +20,7 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
 }
 
 /* Hamburger button (mobile only) */
@@ -26,10 +30,10 @@
   border: none;
   cursor: pointer;
   color: #333;
-  display: none; /* hidden on desktop */
+  display: none; 
 }
 
-/* Logo styling with retro font */
+/* Logo styling */
 .logo {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
@@ -39,15 +43,15 @@
   white-space: nowrap;
 }
 
-/* Desktop links (next to logo) */
+/* Desktop links */
 .desktop-links {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .desktop-links a {
   font-family: sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 0.95rem;
   color: #333;
   text-decoration: none;
@@ -59,80 +63,65 @@
 }
 
 /* Right side cart */
-.header-right .cart {
+.header-right {
+  display: flex;
+  justify-content: flex-end; /* Ensures content sticks to the right */
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 1.3rem;
-  font-weight: bold;
   text-decoration: none;
   color: #333;
+  background: #f4f4f4;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.cart:hover {
+  background: #ff9900;
+  color: white;
+}
+
+.cart-count {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
 }
 
 /* Mobile menu dropdown */
 .mobile-menu {
   position: absolute;
-  top: 60px; /* below header */
-  left: 10px;
-  right: 10px;
+  top: 70px;
+  left: 0;
+  width: 100%;
   background: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-bottom: 2px solid #ff9900;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  animation: slideDown 0.3s ease;
+  gap: 15px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
 .mobile-menu a {
   text-decoration: none;
   color: #333;
+  font-size: 1.1rem;
   font-weight: bold;
-  font-family: sans-serif;
 }
 
-.hamburger:hover,
-.mobile-menu a:hover,
-.header-right .cart:hover {
-  color: #ff9900;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .hamburger {
-    display: block; /* show hamburger */
+    display: block;
   }
-
   .desktop-links {
-    display: none; /* hide desktop links */
+    display: none;
   }
-
-  .header-right .cart {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo {
-    font-size: 1.3rem;
-  }
-
-  .hamburger {
-    font-size: 1.5rem;
-  }
-
-  .header-right .cart {
-    font-size: 1.1rem;
-  }
-}
-
-/* Hide mobile menu on desktop */
-@media (min-width: 769px) {
-  .mobile-menu {
-    display: none !important;
+  .header {
+    padding: 0 15px;
   }
 }

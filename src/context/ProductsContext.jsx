@@ -1,71 +1,66 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import useProducts from "../hooks/useProducts.js";
 
 const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
-  const productsHook = useProducts(); // { products, setProducts, loading }
-
-  // Original default products
-  const originalProducts = productsHook.products || [];
-
-  // Local state to control products
-  const [products, setProducts] = useState(originalProducts);
-
-  // Sync with hook initially
-  useEffect(() => {
-    if (productsHook.products) {
-      setProducts(productsHook.products);
-    }
-  }, [productsHook.products]);
+  // Use all the CRUD functions from our custom hook
+  const { 
+    products, 
+    loading, 
+    addProduct: postProduct, 
+    updateProduct: patchProduct, 
+    deleteProduct: removeProductDB 
+  } = useProducts();
 
   const [cart, setCart] = useState([]);
 
-  // Add product to cart
+  // --- CART LOGIC ---
   const addToCart = (product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
       }
+      return [...prev, { ...product, quantity: 1 }];
     });
   };
 
-  // Remove from cart
   const removeFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Update cart quantity
   const updateQuantity = (id, quantity) => {
     setCart((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, quantity: quantity > 0 ? quantity : 1 } : item
+        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
       )
     );
   };
 
-  // Add product
-  const addProduct = (product) => {
-    setProducts((prev) => [...prev, product]);
+  // --- PRODUCT CRUD LOGIC (Persistent) ---
+
+  // CREATE: Calls the hook's POST request
+  const addProduct = (newProduct) => {
+    postProduct(newProduct);
   };
 
-  // Remove product from products AND cart
-  const removeProduct = (id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
-    setCart((prev) => prev.filter((item) => item.id !== id));
+  // UPDATE: Calls the hook's PATCH request (Satisfies price edit requirement)
+  const editProduct = (id, updatedFields) => {
+    patchProduct(id, updatedFields);
   };
 
-  // Reset app to original products
+  // DELETE: Calls the hook's DELETE request & clears from cart
+  const deleteProduct = (id) => {
+    removeProductDB(id);
+    removeFromCart(id); // Clean up cart if product is deleted from store
+  };
+
   const resetApp = () => {
-    setProducts(originalProducts);
     setCart([]);
+    window.location.reload(); // Re-fetches fresh data from db.json
   };
 
   return (
@@ -73,12 +68,13 @@ export const ProductsProvider = ({ children }) => {
       value={{
         products,
         cart,
-        loading: productsHook.loading,
+        loading,
         addToCart,
         removeFromCart,
         updateQuantity,
         addProduct,
-        removeProduct,
+        editProduct,   // New: Pass this to Admin for price changes
+        deleteProduct, // New: Pass this to Admin for permanent removal
         resetApp,
       }}
     >
